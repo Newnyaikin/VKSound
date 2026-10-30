@@ -1,0 +1,4 @@
+/* Smooth wheel-close feedback without translating player content. */
+#fullPlayer .full-player-header::after{content:"";position:absolute;left:25%;right:25%;bottom:0;height:2px;border-radius:2px;background:var(--accent);opacity:var(--wheel-close-ratio,0);transform:scaleX(var(--wheel-close-ratio,0));transform-origin:center;pointer-events:none;transition:transform .12s ease,opacity .12s ease}
+#fullPlayer.is-wheel-closing #fullClose .icon{color:var(--accent);transition:color .12s ease}
+@media(prefers-reduced-motion:reduce){#fullPlayer .full-player-header::after,#fullPlayer #fullClose .icon{transition:none}}

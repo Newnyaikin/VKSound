@@ -1,0 +1,5 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs');
+test('minimal audio-wave logo is a self-contained gradient mark',()=>{const s=fs.readFileSync('assets/icon.svg','utf8');assert.ok(s.includes('viewBox="0 0 256 256"'));assert.ok((s.match(/<rect /g)||[]).length>=5);assert.ok(s.includes('linearGradient'));assert.ok(s.includes('#13A9A3'));assert.ok(s.includes('#286FD5'));assert.ok(!s.includes('https://'));});
+test('window and tray PNG assets are valid and appropriately sized',()=>{for(const [name,size] of [['icon.png',256],['tray.png',64]]){const b=fs.readFileSync('assets/'+name);assert.equal(b.subarray(1,4).toString(),'PNG');assert.equal(b.readUInt32BE(16),size);assert.equal(b.readUInt32BE(20),size);}});
+test('Windows ICO assets include small high-DPI frames',()=>{for(const name of ['icon.ico','tray.ico']){const b=fs.readFileSync('assets/'+name);assert.equal(b.readUInt16LE(0),0);assert.equal(b.readUInt16LE(2),1);const sizes=[];for(let i=0;i<b.readUInt16LE(4);i++)sizes.push(b[6+i*16]||256);for(const n of [16,20,24,32,48,64])assert.ok(sizes.includes(n));}});

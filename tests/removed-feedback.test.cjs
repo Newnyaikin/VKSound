@@ -1,0 +1,6 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const app=path.join(__dirname,'../app');const read=f=>fs.readFileSync(path.join(app,f),'utf8');
+test('removed feedback has no buttons or handlers in player or track list',()=>{const html=read('index.html');for(const token of ['dislikeButton','fullDislike','i-dislike','Не рекомендовать'])assert.ok(!html.includes(token),token);for(const f of ['renderer.js','player-view.js','enhancements.js'])for(const token of ['requestVkFeedback','renderDislike','track-dislike','excludeBusy'])assert.ok(!read(f).includes(token),f+':'+token);});
+test('removed feedback cannot be called through renderer bridge or main IPC',()=>{for(const f of ['preload.cjs','main.cjs'])for(const token of ['openVkFeedback','excludeTrack'])assert.ok(!read(f).includes(token),f+':'+token);for(const f of ['vk-feedback.cjs','excluded-tracks.cjs'])assert.equal(fs.existsSync(path.join(app,f)),false);});
+test('removing feedback preserves favorite controls and artwork/motion integrations',()=>{const html=read('index.html');for(const token of ['nowFavorite','fullFavorite','playerCoverBackdrop','fullCoverBackdrop','ui-motion.js'])assert.ok(html.includes(token),token);assert.match(read('update0109.css'),/#collection\{--actions:88px\}/);});

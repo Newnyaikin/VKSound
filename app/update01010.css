@@ -1,0 +1,11 @@
+/* One coordinated glass tint, no hard-coded blue specular highlights. */
+html[data-theme=glass] :is(.setting-card,.playlist-card,.playlist-cover,.friend-card,.recommendation-card,.detail-hero,.detail-art,.info-grid>article,.result-row,.equalizer-card,.search-playlist-card,.queue-shortcut){background:var(--glass-panel);border-color:var(--glass-edge);backdrop-filter:blur(24px) saturate(110%);box-shadow:none}
+html[data-theme=glass] :is(.eq-bands,.secondary,.account-pill,.global-search,.filter,select){background:var(--glass-input);border-color:var(--control-line)}
+html[data-theme=glass] :is(.global-search,.filter) input:not([type=range]){background:transparent;box-shadow:none}
+html[data-theme=glass] :is(dialog:not(#fullPlayer),select::picker(select),.toast){background:var(--glass-menu);border-color:var(--glass-edge);backdrop-filter:blur(32px) saturate(110%)}
+html[data-theme=glass] .dialog-heading{background:transparent;border-color:var(--glass-edge)}
+html[data-theme=glass] :is(.secondary,.search-playlist-card):hover:not(:disabled){background:var(--raised)}
+html[data-theme=glass] :is(select option:hover,select option:focus-visible){background:var(--raised)}
+html[data-theme=glass] select option:checked{background:var(--soft)}
+html[data-theme=glass] :is(.sidebar,.workspace,.topbar,.window-titlebar,.player){background:transparent}
+html[data-theme=glass] dialog::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(6px)}

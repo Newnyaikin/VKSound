@@ -1,0 +1,73 @@
+name: Build Windows installer
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and test
+    runs-on: windows-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Build installer
+        shell: powershell
+        run: .\scripts\Build-App.ps1 -CI
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: VKSound-installer-${{ github.run_number }}
+          path: artifacts/VKSound-Setup-*.exe
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+
+  release:
+    name: Publish latest installer
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref_name == github.event.repository.default_branch
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out release metadata
+        uses: actions/checkout@v4
+
+      - name: Download installer artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: VKSound-installer-${{ github.run_number }}
+          path: release-assets
+
+      - name: Create a stable download filename
+        shell: bash
+        run: |
+          set -euo pipefail
+          installer="$(find release-assets -maxdepth 1 -type f -name 'VKSound-Setup-*.exe' -print -quit)"
+          test -n "$installer"
+          cp "$installer" release-assets/VKSound-Setup-latest.exe
+          (cd release-assets && sha256sum VKSound-Setup-latest.exe > VKSound-Setup-latest.exe.sha256)
+          version="$(node -p "require('./package.json').version")"
+          printf 'Automatically updated after a successful build on the default branch.\nVKSound build run: %s\nVKSound version: %s\n' "$GITHUB_RUN_ID" "$version" > release-assets/release-notes.md
+
+      - name: Create or update the latest release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Latest Windows installer
+          body_path: release-assets/release-notes.md
+          files: |
+            release-assets/VKSound-Setup-latest.exe
+            release-assets/VKSound-Setup-latest.exe.sha256
+          overwrite_files: true
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

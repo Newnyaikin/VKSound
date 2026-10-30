@@ -1,0 +1,12 @@
+.tools/
+node_modules/
+artifacts/
+build-gui.log
+*.log
+.env
+.env.*
+!.env.example
+qa/*.png
+qa/ui-check-result.html
+.DS_Store
+Thumbs.db

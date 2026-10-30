@@ -1,0 +1,6 @@
+(function(root){'use strict';
+function releaseDate(p){const v=p?.release_date??p?.releaseDate;if(typeof v==='string'&&/^\d{4}(?:-\d{2}-\d{2})?$/.test(v)&&Number(v.slice(0,4))>=1900&&Number(v.slice(0,4))<=2100&&Number.isFinite(Date.parse(v))&&new Date(v).toISOString().startsWith(v))return v;if(Number.isSafeInteger(v)&&v>315532800&&v<7258118400)return new Date(v*1000).toISOString().slice(0,10);const y=p?.year;return Number.isInteger(y)&&y>=1900&&y<=2100?String(y):'';}
+function rangeSelection(keys,selected,anchor,key,on=true,limit=100){const next=new Set(selected),a=keys.indexOf(anchor),b=keys.indexOf(key),range=a<0||b<0?[key]:keys.slice(Math.min(a,b),Math.max(a,b)+1);for(const k of range){if(on){if(next.size<limit)next.add(k);}else next.delete(k);}return next;}
+function groupKind(title){const t=String(title).toLocaleLowerCase();return /жанр|рок|поп-музык|электрон|hip.hop|джаз/.test(t)?'genres':/настроен|радост|груст|бодр|расслаб/.test(t)?'mood':/исполнител|артист/.test(t)?'artists':/прослуш|по мотив|вы слуш|вам понрав|для вас|для тебя/.test(t)?'listening':'vk';}
+const api={releaseDate,rangeSelection,groupKind};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.VKSoundExperience=api;
+})(typeof window!=='undefined'?window:globalThis);

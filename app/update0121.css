@@ -1,0 +1,21 @@
+.copy-link-button{color:color-mix(in srgb,var(--muted) 92%,#fff)}
+#collection{--actions:132px}
+@media(max-width:900px){#collection{--actions:88px}}
+#tracks .copy-link-button .icon,.discovery-actions .copy-link-button .icon{filter:brightness(1.04)}
+.discovery-actions .copy-link-button{color:color-mix(in srgb,var(--muted) 92%,#fff)}
+.media-actions .copy-link-button{width:32px;min-width:32px;height:32px;padding:7px}
+.search-artist-card{cursor:default}
+.search-artist-open{display:flex;flex-direction:column;align-items:stretch;width:100%;min-width:0;padding:0;text-align:left}
+.search-artist-open>strong{font-size:15px;line-height:1.4;margin:10px 0 3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.search-artist-open>small{font-size:12px;line-height:1.5;color:var(--muted)}
+.search-artist-share,.release-share{position:absolute;top:6px;right:6px;width:32px;min-width:32px;height:32px;padding:6px;border:1px solid var(--line);border-radius:50%;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(10px)}
+.search-artist-share{opacity:0;transition:opacity .16s ease}
+.search-artist-card:is(:hover,:focus-within) .search-artist-share{opacity:1}
+@media(hover:none){.search-artist-share{opacity:1}}
+.release-card{position:relative}
+.release-open{display:block;width:100%;min-width:0;padding:0;text-align:left}
+#playerCoverBackdrop,#fullCoverBackdrop{opacity:.22}
+#playerCoverBackdrop .cover-art,#fullCoverBackdrop .cover-art{filter:blur(14px) saturate(.8);transform:scale(1.1)}
+html[data-theme=light] #playerCoverBackdrop,html[data-theme=light] #fullCoverBackdrop{opacity:.13}
+html[data-theme=glass] #playerCoverBackdrop,html[data-theme=glass] #fullCoverBackdrop{opacity:.17}
+@media(max-width:700px){#collection{--actions:88px}}

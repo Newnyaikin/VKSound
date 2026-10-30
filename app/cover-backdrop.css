@@ -1,0 +1,16 @@
+/* Still, local artwork accents. No extra panels, motion or hit targets. */
+#bottomPlayer .transport{position:relative;isolation:isolate}
+.cover-backdrop{position:absolute;pointer-events:none;user-select:none;z-index:-1;overflow:hidden}
+.cover-backdrop .cover-art>.icon{display:none}
+.cover-backdrop .cover-art{color:transparent}
+.cover-backdrop img{object-fit:cover;object-position:50% 45%}
+#playerCoverBackdrop{inset:-15px -22px;opacity:.26;mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent)}
+#playerCoverBackdrop .cover-art{filter:blur(7px) saturate(.8);transform:scale(1.08)}
+#fullPlayer{isolation:isolate}
+#fullCoverBackdrop{inset:0 0 auto;height:min(100%,960px);opacity:.22;mask-image:radial-gradient(ellipse at 32% 38%,#000 4%,#0009 44%,transparent 76%);-webkit-mask-image:radial-gradient(ellipse at 32% 38%,#000 4%,#0009 44%,transparent 76%)}
+#fullCoverBackdrop .cover-art{filter:blur(44px) saturate(.75);transform:scale(1.12)}
+html[data-theme=light] #playerCoverBackdrop{opacity:.15}
+html[data-theme=light] #fullCoverBackdrop{opacity:.13}
+html[data-theme=glass] #playerCoverBackdrop{opacity:.20}
+html[data-theme=glass] #fullCoverBackdrop{opacity:.17}
+@media(max-width:700px){#playerCoverBackdrop{inset:-8px -12px}#fullCoverBackdrop{height:min(100%,760px);mask-image:radial-gradient(ellipse at 50% 24%,#000 0%,#0007 45%,transparent 78%);-webkit-mask-image:radial-gradient(ellipse at 50% 24%,#000 0%,#0007 45%,transparent 78%)}}

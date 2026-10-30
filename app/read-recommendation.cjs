@@ -1,0 +1,3 @@
+'use strict';const {allPages}=require('./sync.cjs'),{AppError}=require('./model.cjs');
+async function readRecommendation(catalog,client,store,id,{valid=()=>true,delay=350}={}){if(!catalog.has(id))throw new AppError('INPUT','Сначала загрузите рекомендованные плейлисты VK.');const accountId=store.profile?.id,meta=await client.playlistMeta(id);if(!valid())throw new AppError('CANCELLED','Аккаунт изменился.');const rows=await allPages(offset=>client.playlistPage(id,offset),{valid,delay});if(!valid())throw new AppError('CANCELLED','Аккаунт изменился.');await store.remember(rows,{accountId});return {...meta,accountId,editable:false,keys:rows.map(t=>t.key),total:rows.length,syncedAt:new Date().toISOString()};}
+module.exports={readRecommendation};

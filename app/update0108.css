@@ -1,0 +1,22 @@
+/* One consistent glass material across app-owned surfaces, not just the shell.
+   Saturated/cover-derived colors remain accents; text is never translucent. */
+html[data-theme=glass]{--glass-panel:rgba(23,34,51,.62);--glass-input:rgba(12,22,38,.38);--glass-menu:rgba(22,32,49,.88);--glass-edge:rgba(213,232,255,.14)}
+html[data-theme=glass] :is(.setting-card,.playlist-card,.playlist-cover,.friend-card,.recommendation-card,.detail-hero,.detail-art,.info-grid>article,.result-row,.equalizer-card,.search-playlist-card,.queue-shortcut){background:linear-gradient(135deg,rgba(232,244,255,.045),transparent 60%),var(--glass-panel);border-color:var(--glass-edge);backdrop-filter:blur(24px) saturate(130%);box-shadow:none}
+html[data-theme=glass] :is(.eq-bands,input:not([type=range]):not([type=checkbox]),.secondary,.account-pill,.global-search,.filter,select){background:var(--glass-input);border-color:var(--control-line)}
+html[data-theme=glass] :is(.secondary,.search-playlist-card):hover{background:var(--raised)}
+html[data-theme=glass] dialog:not(#fullPlayer),html[data-theme=glass] select::picker(select){background:linear-gradient(135deg,rgba(225,240,255,.05),transparent 65%),var(--glass-menu);border-color:var(--glass-edge);backdrop-filter:blur(36px) saturate(130%)}
+html[data-theme=glass] #fullPlayer{background:radial-gradient(ellipse at 12% 10%,color-mix(in srgb,var(--accent) 8%,transparent),transparent 65%),rgba(16,23,35,.74);backdrop-filter:blur(38px) saturate(135%)}
+html[data-theme=glass] .full-player-header{background:rgba(20,29,44,.3);backdrop-filter:blur(28px);border-color:var(--glass-edge)}
+html[data-theme=glass] .toast{background:var(--glass-menu);backdrop-filter:blur(28px);border-color:var(--glass-edge)}
+/* Track hero and lyrics share one scroll container, inside the same app window. */
+.full-player-scroll{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+#fullPlayer .full-player-body{min-height:calc(100dvh - 126px);overflow:visible;margin:0 auto;flex-shrink:0}
+#fullPlayer .full-lyrics{width:min(960px,100%);margin:0 auto;padding:40px 32px 96px;min-height:420px;scroll-margin-top:24px;border-top:1px solid var(--line)}
+.full-lyrics h2{font-size:26px;margin:8px 0}.full-lyrics .lyrics-body{max-height:none;overflow:visible;padding:24px 0;font-size:20px;line-height:1.7;white-space:normal}.full-lyrics .lyrics-body p{margin:0 0 12px;overflow-wrap:anywhere}
+.full-extra{gap:8px}
+.storage-folder{display:block;width:100%;padding:8px 0;margin:0;text-align:left;min-height:44px;border:0;border-radius:6px;font:12px/1.6 Consolas,monospace;overflow-wrap:anywhere;white-space:normal;color:var(--accent);text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--accent) 35%,transparent);text-underline-offset:4px}.storage-folder:hover:not(:disabled){text-decoration-color:currentColor}.storage-folder:disabled{color:var(--muted);text-decoration:none}
+.search-playlists{margin:24px 0 32px}.search-playlists-heading{display:flex;justify-content:space-between;align-items:center;gap:16px}.search-playlists h2{font-size:20px;margin:0 0 16px}.search-playlists .playlist-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.search-playlist-card{display:flex;align-items:center;gap:14px;min-width:0;padding:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;text-align:left}.search-playlist-card:hover{border-color:var(--accent)}.search-playlist-art{width:64px;height:64px;flex:0 0 64px;border-radius:8px;overflow:hidden;background:var(--soft)}.search-playlist-copy{min-width:0}.search-playlist-copy strong{display:block;font-size:15px;line-height:1.4;overflow-wrap:anywhere}.search-playlist-copy small{display:block;font-size:12px;line-height:1.6;overflow-wrap:anywhere}#moreSearchPlaylists{margin-top:16px}
+@media(max-width:700px){#fullPlayer .full-player-body{min-height:calc(100dvh - 108px);gap:20px}#fullPlayer .full-lyrics{padding:28px 24px 64px}.full-lyrics .lyrics-body{font-size:17px}.search-playlists .playlist-grid{grid-template-columns:1fr}}
+@media(max-width:1100px){.player-right{gap:0}.player-right .icon-button{width:36px;min-width:36px}.player-right{width:auto}}
+@media(prefers-reduced-motion:reduce){.full-player-scroll{scroll-behavior:auto}}
+@media(max-width:700px){#fullPlayer .full-extra{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}#fullPlayer #fullLyrics{order:2}}

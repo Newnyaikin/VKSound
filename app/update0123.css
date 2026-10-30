@@ -1,0 +1,15 @@
+.artist-albums-page{max-width:1360px;margin:auto}
+.artist-albums-page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:24px}
+.artist-albums-page-grid .playlist-card{min-width:0}
+.artist-albums-page-grid .media-art{aspect-ratio:1.35}
+.queue-button-art{width:24px;height:24px;border-radius:5px;overflow:hidden}
+.queue-card-art{width:34px;height:34px;flex:0 0 34px;border-radius:6px;overflow:hidden}
+.queue-button-art img,.queue-card-art img{border-radius:inherit}
+/* Soften artwork behind the full-track player and its sticky player strip. */
+#fullCoverBackdrop{opacity:.12}
+#fullCoverBackdrop .cover-art{filter:blur(58px) saturate(.62);transform:scale(1.18)}
+html[data-theme=light] #fullCoverBackdrop{opacity:.08}
+html[data-theme=glass] #fullCoverBackdrop{opacity:.09}
+.full-sticky .compact-player-proxy [data-proxy-source="playerCoverBackdrop"]{opacity:.10}
+.full-sticky .compact-player-proxy [data-proxy-source="playerCoverBackdrop"] .cover-art{filter:blur(18px) saturate(.62);transform:scale(1.16)}
+@media(max-width:700px){.artist-albums-page-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.artist-albums-page .heading{align-items:flex-start;flex-wrap:wrap}}

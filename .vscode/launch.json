@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "VKSound (Electron)",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/electron/dist/electron.exe",
+      "runtimeArgs": ["."],
+      "outputCapture": "std",
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+/* Keep the navigation scrollbar flush with the sidebar's outer edge. */
+.sidebar{--sidebar-scrollbar-inset:16px}
+.sidebar>#sidebarScroll{margin-right:calc(-1 * var(--sidebar-scrollbar-inset));padding-right:var(--sidebar-scrollbar-inset)}
+@media(max-width:1100px){.sidebar{--sidebar-scrollbar-inset:12px}}
+html[data-sidebar-collapsed=true] .sidebar{--sidebar-scrollbar-inset:8px}
+
+/* The wide close affordance should not visibly shrink when pressed. */
+#fullPlayer #fullClose{scale:1;transition:background-color .1s ease,color .1s ease}
+#fullPlayer #fullClose:active:not(:disabled){scale:1}
+
+/* Track artwork matches the compact player's blur and opacity in every theme. */
+#fullCoverBackdrop{
+  inset:-15px -22px;height:100%;opacity:.26;
+  mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent)
+}
+#fullCoverBackdrop .cover-art{filter:blur(7px) saturate(.8);transform:scale(1.08)}
+html[data-theme=light] #fullCoverBackdrop{opacity:.15}
+html[data-theme=glass] #fullCoverBackdrop{opacity:.20}
+@media(max-width:700px){#fullCoverBackdrop{inset:-8px -12px;height:100%}}
+
+/* App marks follow the active track palette, with safe default colors. */
+.app-logo .logo-gradient-a{stop-color:color-mix(in srgb,var(--cover-a,#13A9A3) 55%,#101722)}
+.app-logo .logo-gradient-b{stop-color:color-mix(in srgb,var(--cover-b,#286FD5) 55%,#101722)}
+.window-brand .app-logo{width:20px;height:20px;flex:0 0 auto}
+#musicHome .app-logo{width:42px;height:42px;flex:0 0 auto}
+@media(max-width:1100px){#musicHome .app-logo{width:36px;height:36px}}
+@media(max-height:760px){#musicHome .app-logo{width:34px;height:34px}}
+@media(max-height:680px){#musicHome .app-logo{width:30px;height:30px}}
+html[data-sidebar-collapsed=true] #musicHome .app-logo{width:36px;height:36px}

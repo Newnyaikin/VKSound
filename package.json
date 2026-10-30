@@ -1,0 +1,27 @@
+{
+  "name": "vksound",
+  "version": "1.0.1",
+  "private": false,
+  "description": "VK music library and desktop player",
+  "main": "app/main.cjs",
+  "author": "VKSound contributors",
+  "license": "GPL-3.0-only",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "electron .",
+    "test": "node scripts/check-source-paths.cjs && node --test --test-timeout=15000 tests/*.test.cjs",
+    "build:app": "node scripts/build-app.cjs",
+    "prepare:electron": "node scripts/ensure-electron.cjs",
+    "check:dependencies": "node scripts/dependencies-ready.cjs",
+    "check:sources": "node scripts/check-source-paths.cjs"
+  },
+  "dependencies": {
+    "hls.js": "1.7.3"
+  },
+  "devDependencies": {
+    "electron": "45.0.0",
+    "rcedit": "5.0.2"
+  }
+}

@@ -1,0 +1,55 @@
+body:has(#fullPlayer[open]) #mainScrollToTop{display:none!important}
+
+/* The sticky player is a fitted control bar, not a horizontal scroll area. */
+.full-sticky{overflow:hidden!important;overflow-x:hidden!important;scrollbar-width:none!important;overscroll-behavior:none}
+.full-sticky::-webkit-scrollbar{display:none!important}
+.full-sticky .compact-player-proxy.player{
+  width:100%;min-width:0!important;box-sizing:border-box;
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr) minmax(0,1fr)!important;
+  gap:clamp(4px,1vw,12px);padding-inline:clamp(8px,1.8vw,20px);overflow:hidden!important
+}
+.full-sticky .compact-player-proxy :is(.now,.transport,.player-right){min-width:0}
+.full-sticky .compact-player-proxy .now{gap:8px}
+.full-sticky .compact-player-proxy .now-art{width:40px;height:40px;flex:0 0 40px}
+.full-sticky .compact-player-proxy .now-text{min-width:0}
+.full-sticky .compact-player-proxy [data-proxy-source="playerCoverBackdrop"]{inset:0!important}
+.full-sticky .compact-player-proxy .transport-buttons{gap:2px}
+.full-sticky .compact-player-proxy .transport-buttons .icon-button{width:32px;min-width:32px;height:34px;padding:6px}
+.full-sticky .compact-player-proxy .transport-buttons .play-button{width:40px;height:40px;margin:0 2px}
+.full-sticky .compact-player-proxy .transport-buttons .icon{width:16px;height:16px}
+.full-sticky .compact-player-proxy .progress{gap:6px}
+.full-sticky .compact-player-proxy .progress time{min-width:26px;font-size:9px}
+.full-sticky .compact-player-proxy .player-right{gap:3px}
+.full-sticky .compact-player-proxy .player-right>.icon-button{width:30px;min-width:30px;height:34px;padding:5px}
+.full-sticky .compact-player-proxy .volume{flex:1 1 72px;min-width:0;max-width:120px;gap:3px}
+.full-sticky .compact-player-proxy .volume-mute{width:28px;min-width:28px;height:32px;padding:6px}
+.full-sticky .compact-player-proxy .volume input{min-width:30px}
+
+/* A small inline volume control matching the bottom player. */
+.full-volume-control{
+  flex:0 1 210px;min-width:132px;max-width:220px;margin:0;padding:0;gap:4px;
+  border:0;border-radius:0;background:transparent
+}
+.full-volume-control .icon-button{width:32px;min-width:32px;height:34px;color:var(--muted)}
+.full-volume-control .icon-button:hover{color:var(--text)}
+.full-volume-control input{flex:1;width:100%;min-width:56px;max-width:112px;height:4px;min-height:4px;padding:0;border:0;background:transparent}
+.full-volume-control output{min-width:28px;font-size:10px;opacity:.72}
+
+@media(max-width:700px){
+  .full-sticky{height:100px;margin-bottom:-100px}
+  .full-sticky .compact-player-proxy.player{height:100px;min-width:0!important;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr) minmax(0,1fr)!important;gap:4px;padding:8px}
+  .full-sticky .compact-player-proxy .player-right{gap:1px}
+  .full-sticky .compact-player-proxy .player-right>.icon-button{width:26px;min-width:26px;padding:4px}
+  .full-sticky .compact-player-proxy .volume{flex-basis:52px}
+  .full-sticky .compact-player-proxy .volume-mute{width:24px;min-width:24px}
+  #fullPlayer .full-extra{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #fullPlayer .full-volume-control{grid-column:1/-1;justify-self:center}
+}
+@media(max-width:520px){
+  .full-sticky .compact-player-proxy .now-art{width:34px;height:34px;flex-basis:34px}
+  .full-sticky .compact-player-proxy .now .icon-button,
+  .full-sticky .compact-player-proxy [data-proxy-source="shuffle"],
+  .full-sticky .compact-player-proxy [data-proxy-source="repeat"],
+  .full-sticky .compact-player-proxy [data-proxy-source="lyricsButton"],
+  .full-sticky .compact-player-proxy [data-proxy-source="equalizerButton"]{display:none}
+}

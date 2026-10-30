@@ -1,0 +1,27 @@
+/* Fixed geometry in every state, including the smaller tray timeline. */
+.seek-wrap{position:relative;flex:1;min-width:0;display:flex;align-items:center;height:var(--seek-height,28px);min-height:var(--seek-height,28px);--seek-progress:0%}
+.seek-wrap::before{content:"";position:absolute;left:0;right:0;height:3px;border-radius:2px;background:linear-gradient(to right,var(--accent) 0 var(--seek-progress),var(--line) var(--seek-progress) 100%);pointer-events:none;opacity:1;transition:opacity .2s ease}
+.seek-wrap input[type=range]{appearance:none;-webkit-appearance:none;width:100%;min-width:0;min-height:var(--seek-height,28px);height:var(--seek-height,28px);margin:0;padding:0;border:0;background:transparent!important;position:relative;z-index:2;cursor:pointer;opacity:1}
+.seek-wrap input[type=range]::-webkit-slider-runnable-track{height:var(--seek-height,28px);background:transparent;border:0}
+.seek-wrap input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:12px;height:12px;margin-top:calc((var(--seek-height,28px) - 12px)/2);border:0;border-radius:50%;background:transparent}
+.seek-wrap input[type=range]:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.seek-wrap input[type=range]:focus-visible::-webkit-slider-thumb{background:var(--accent)}
+.seek-wave{position:absolute;inset:0;display:flex;align-items:center;gap:2px;opacity:0;pointer-events:none;transform:scaleY(.1);transform-origin:center;transition:opacity .22s ease,transform .3s cubic-bezier(.2,.8,.25,1)}
+.seek-wave i{flex:1;min-width:0;background:var(--muted);opacity:.58}.seek-wave i.played{background:var(--accent);opacity:1}.seek-wave i.unknown{opacity:.25}
+.seek-wrap:is(:hover,:focus-within):not(:has(input:disabled)):has(.seek-wave[data-actual=true])::before{opacity:0}
+.seek-wrap:is(:hover,:focus-within):not(:has(input:disabled)) .seek-wave[data-actual=true]{opacity:1;transform:scaleY(1)}
+.seek-wrap:has(input:disabled){opacity:.4}
+.seek-tooltip{position:absolute;bottom:100%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--line);color:var(--text);font-size:11px;padding:3px 7px;border-radius:6px;pointer-events:none;z-index:4}
+@media(prefers-reduced-motion:reduce){.seek-wave,.seek-wrap::before{transition:none}}
+/* Crisp bars, opaque played portion and a legible but quieter unplayed portion.
+   No height/width change of the seek wrapper, no artificial per-bar animation. */
+.seek-wave{gap:1px}
+.seek-wave i{border-radius:0;opacity:.9;background:color-mix(in srgb,var(--text) 62%,var(--muted))}
+.seek-wave i.played{opacity:1;background:var(--accent)}
+.seek-wave i.unknown{opacity:.18}
+.seek-wrap:is(:hover,:focus-within) .seek-wave[data-placeholder=true]{opacity:.58;transform:scaleY(1)}
+.seek-wave[data-placeholder=true] i{opacity:.32;background:var(--muted);border-radius:1px}
+.seek-wave i.placeholder{opacity:.32;background:var(--muted);border-radius:1px}
+.seek-wave i.placeholder.played{opacity:1;background:var(--accent)}
+.seek-wave i.live{opacity:1;background:var(--accent);border-radius:1px;transition:height .08s linear}
+@media(prefers-reduced-motion:reduce){.seek-wave i.live{transition:none}}

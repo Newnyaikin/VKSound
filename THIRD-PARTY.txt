@@ -1,0 +1,11 @@
+Electron and bundled Chromium
+https://github.com/electron/electron
+Their licenses are included with the Electron runtime.
+
+hls.js 1.7.3 — Apache-2.0
+https://github.com/video-dev/hls.js
+Its license is copied into the packaged application.
+
+VKSound is not affiliated with VK or Wave. The project uses no VK-provided
+credentials. Access to VK services depends on the user's account and current
+service availability.

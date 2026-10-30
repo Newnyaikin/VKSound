@@ -1,0 +1,11 @@
+/* The footer reserves no space until a playlist actually starts. Explicit pixel
+   grid tracks interpolate without measuring scroll height or polling timers. */
+:root{--player-height:112px;--titlebar-height:38px;--player-row:0px}
+:root[data-player-visible=true]{--player-row:var(--player-height)}
+body{grid-template-rows:var(--titlebar-height) minmax(0,1fr) var(--player-row);transition:grid-template-rows .32s cubic-bezier(.2,.75,.25,1)}
+#bottomPlayerSlot{grid-column:1/-1;grid-row:3;min-height:0;min-width:0;overflow:clip;position:relative;z-index:1}
+#bottomPlayer{height:var(--player-height);min-height:0;align-self:start;opacity:0;transform:translateY(12px);visibility:hidden;pointer-events:none;transition:opacity .22s ease,transform .32s cubic-bezier(.2,.75,.25,1),visibility 0s linear .32s}
+html[data-player-visible=true] #bottomPlayer{opacity:1;transform:none;visibility:visible;pointer-events:auto;transition:opacity .26s ease .04s,transform .32s cubic-bezier(.2,.75,.25,1),visibility 0s}
+.toast{bottom:calc(var(--player-row) + 16px);transition:opacity .15s,bottom .32s cubic-bezier(.2,.75,.25,1)}
+@media(max-width:600px){:root{--player-height:154px;--titlebar-height:36px}}
+@media(prefers-reduced-motion:reduce){body,#bottomPlayer,html[data-player-visible=true] #bottomPlayer,.toast{transition:none}#bottomPlayer{transform:none}}

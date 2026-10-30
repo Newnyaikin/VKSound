@@ -1,0 +1,11 @@
+'use strict';
+const {contextBridge,ipcRenderer,webFrame}=require('electron');
+const methods=['playbackSession','copyLink','openVkMusic','openDataFolder','searchPlaylists','searchArtists','resolveLink','catalogAlbum','artistLookup','artistPage','artistAlbums','friends','friendMusic','lyrics','trackMix','confirmReply','windowControl','state','login','cancelLogin','logout','library','play','stop','about','search','snapshot','libraryEdit','settings','volume','cacheSave','cacheRemove','cacheClear','sync','mixDiagnostics','mix','playing','remoteEdit','inspectList','cacheBatch','importLocal','albumTracks','localDuration','recommendations','recommendationTracks','playerState','checkUpdate','downloadUpdate','installUpdate'];const api={};for(const name of methods)api[name]=arg=>ipcRenderer.invoke('volna:'+name,arg);
+api.onStatus=fn=>{const listener=(_e,data)=>fn(data);ipcRenderer.on('volna:status',listener);return()=>ipcRenderer.removeListener('volna:status',listener);};
+api.onCommand=fn=>{const listener=(_e,name)=>fn(name);ipcRenderer.on('volna:command',listener);return()=>ipcRenderer.removeListener('volna:command',listener);};
+api.onData=fn=>{const listener=(_e,data)=>fn(data);ipcRenderer.on('volna:data',listener);return()=>ipcRenderer.removeListener('volna:data',listener);};
+api.onVisibility=fn=>{const listener=(_e,value)=>fn(value);ipcRenderer.on('volna:visibility',listener);return()=>ipcRenderer.removeListener('volna:visibility',listener);};
+api.onVolume=fn=>{const listener=(_e,value)=>fn(value);ipcRenderer.on('volna:volume',listener);return()=>ipcRenderer.removeListener('volna:volume',listener);};
+for(const [name,channel] of [['onConfirm','volna:confirm'],['onWindowState','volna:window-state'],['onSeek','volna:seek']])api[name]=fn=>{const listener=(_e,data)=>fn(data);ipcRenderer.on(channel,listener);return()=>ipcRenderer.removeListener(channel,listener);};
+api.trimMemory=async()=>{try{webFrame.clearCache();return {ok:true,data:true};}catch{return {ok:true,data:false};}};
+contextBridge.exposeInMainWorld('volna',api);

@@ -1,0 +1,13 @@
+VKSound includes modified portions of the Wave VK transport:
+Copyright (C) 2026 arthurhoodwin and Wave contributors.
+Source: https://github.com/arthurhoodwin/wave
+License: GPL-3.0-only. See LICENSE.
+
+VKSound project-specific interface, playlist store, desktop controls, and
+offline-cache code: Copyright (C) 2026 Volna / Sozvuk contributors,
+GPL-3.0-only.
+
+The API client is a restricted, modified implementation. VKSound is not an
+official VK application and is not endorsed by VK or Wave.
+
+No warranty. Redistribution and modification are governed by GPL-3.0-only.
